@@ -19,7 +19,7 @@ def display_inventory(inventory):
     if len(inventory)== 0:
         print("Your inventory is empty.")
     else:
-        print("Your Inventory: ")
+        print("Your Inventory:")
         #will display the inventory, using enumereate() to count items
         for index,value in enumerate(inventory):
             print(f"{index + 1}. {value.title()}")
@@ -152,14 +152,14 @@ def main():
     monster_health = 60
     inventory = [] #everything should be initialized before first function is called
     dungeon_rooms = [
-        ('\nYou enter the Tunnel of Barador \n A giant fortress laced in Ice and Silver','None','trap', 
-         ('You have made it out alive!', 'You were caught in a trap!', -15)),
-        ('\nYou enter the Enchanted Cave of Mystery \nA gem filled cave filled with puzzles','key','puzzle',
-         ('You solved the puzzle!', 'The puzzle will remains unsolved', -5)),
+        ('\nYou enter the Tunnel of Barador \n A giant fortress laced in Ice and Silver',
+         'None','trap', ('You have made it out alive!', 'You were caught in a trap!', -15)),
+        ('\nYou enter the Enchanted Cave of Mystery \nA gem filled cave filled with puzzles',
+         'key','puzzle', ('You solved the puzzle!', 'The puzzle will remains unsolved', -5)),
         ('\nYou have stumbled upon a room with a small cauldron \n It is the Elixir of Life!', 
          'potion', 'none', None),
-        ('\nYou found a room with a treasure chest! But look there is a puzzle...', 'treasure','puzzle', 
-        ('You solved the puzzle!','Door remains stubbornly locked', -5))]
+        ('\nYou found a room with a treasure chest! But look there is a puzzle...',
+         'treasure','puzzle', ('You solved the puzzle!','Door remains stubbornly locked', -5))]
     display_player_status(player_health)
     boolean_choices = [True,False]
     has_treasure = random.choice(boolean_choices)
