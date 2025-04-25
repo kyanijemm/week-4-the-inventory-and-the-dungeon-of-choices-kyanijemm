@@ -19,7 +19,7 @@ def display_inventory(inventory):
     if len(inventory)== 0:
         print("Your inventory is empty.")
     else:
-        print("Your Inventory:")
+        print("Your inventory:")
         #will display the inventory, using enumereate() to count items
         for index,value in enumerate(inventory):
             print(f"{index + 1}. {value.title()}")
@@ -105,52 +105,32 @@ def enter_dungeon(player_health,inventory, dungeon_rooms):
     random.shuffle(dungeon_rooms)
     for dungeon_room in dungeon_rooms: #this is the protocol for every room when it has been entered
         print(dungeon_room[0]) #when they enter a room, they will say the room's description first
-        if dungeon_room[1] != None:
+        if dungeon_room[1] is not None:
             #update the inventory every time an item from a dungeon room is acquired
             inventory = acquire_item(inventory, dungeon_room[1])
+            print("You found a", dungeon_room[1], "in the room.")
         if dungeon_room[2]== 'puzzle': #Everything that happends when you encounter a puzzle
             print("You encounter a puzzle!")
             puzzle_ask = input("Do you wish to solve it? or skip?: ")
             if puzzle_ask == 'solve':
                 puzzle_decision = random.choice([True,False])
-                if puzzle_decision == True:
+                if puzzle_decision:
                     print(dungeon_room[3][0]) #prints success message
-                else:
-                    print(dungeon_room[3] [1]) #prints failure mesasge
-
-                    if dungeon_room[3][2] < 0:
-                        puzzle_damage = player_health - abs(dungeon_room[3][2])
-                        #will substract if negative
-                    else: 
-                        puzzle_damage = player_health + dungeon_room[3][2]
-                        #will add if positive
-                    if puzzle_damage <= 0:
+                    health_change = dungeon_room[3][2]
+                    player_health = max(0, player_health + health_change)
+                    if player_health == 0:
                         print("You are barely alive!")
-                        player_health = 0
-                    else:
-                        player_health = puzzle_damage
         elif dungeon_room[2]== 'trap':
             print("You see a potential trap!")
             trap_ask = input("Do you wish to disarm or bypass it?: ")
             if trap_ask == 'disarm':
                 trap_decision = random.choice([True,False])
-                if trap_decision == True: #they successfully disarm
+                if trap_decision: #they successfully disarm
                     print(dungeon_room [3][0]) #prints success message
-                else:
-                    print(dungeon_room [3][1]) #prints failure message
-
-
-                    if dungeon_room[3][2] < 0:
-                        trap_damage = player_health - abs(dungeon_room[3][2])
-                    else: 
-                        trap_damage = player_health + dungeon_room[3][2]
-
-
-                    if trap_damage <= 0:
-                        print("You are barely alive!")
-                        player_health = 0
-                    else:
-                        player_health = trap_damage
+                health_change = dungeon_room[3][2]
+                player_health = max(0, player_health + health_change)
+                if player_health == 0:
+                    print("You are barely alive!")
         else:
             print("There doesn't seem to be a challenge in this room. You move on")
         display_inventory(inventory)
