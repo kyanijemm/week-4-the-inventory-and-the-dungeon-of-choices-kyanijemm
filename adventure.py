@@ -2,7 +2,7 @@
 import random
 
 #display_player_status fucntion
-def display_player_status(player_health): 
+def display_player_status(player_health):
     """Displays the player's health"""
     print(f"Your current health: {player_health}")
 
@@ -51,7 +51,7 @@ def player_attack(monster_health):
     print("You strike the monster for 15 damage!")
     #set a max function to ensure that monster_health never goes under 0
     monster_health = max(0, monster_health - 15)
-    return(monster_health)
+    return monster_health
 
 #monster_attack function
 def monster_attack(player_health):
@@ -147,7 +147,7 @@ def enter_dungeon(player_health,inventory, dungeon_rooms):
 #end of enter_dungeon function - its really long :)
 
 #The main function!
-def main(): 
+def main():
     player_health = 100
     monster_health = 60
     inventory = [] #everything should be initialized before first function is called
@@ -168,7 +168,6 @@ def main():
     #fight means if the player won and the monster had the treasure
     check_for_treasure(fight)
     #says that in the event that fight is happening, do the check for treasure stuff
-
     updated_health,updated_inventory = enter_dungeon(updated_health, inventory, dungeon_rooms)
     display_inventory(updated_inventory) #displays updated inventory after dungeon exploration
     display_player_status(updated_health) #displays updated health after dungeon exploration
