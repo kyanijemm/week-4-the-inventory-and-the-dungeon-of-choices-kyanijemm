@@ -10,7 +10,7 @@ def display_player_status(player_health):
 def acquire_item(inventory,item):
     """"Just puts items into inventory"""
     inventory.append(item)
-    print(f"You acquired a {item}")
+    print(f"You acquired a {item}!")
     return inventory
 
 #display_inventory function
@@ -22,7 +22,7 @@ def display_inventory(inventory):
         print("Your inventory:")
         #will display the inventory, using enumereate() to count items
         for index,value in enumerate(inventory):
-            print(f"{index + 1}. {value.title()}")
+            print(f"{index + 1}. {value}")
 
 # handle_path_choice function
 def handle_path_choice(player_health):
@@ -127,6 +127,8 @@ def enter_dungeon(player_health,inventory, dungeon_rooms):
                 trap_decision = random.choice([True,False])
                 if trap_decision: #they successfully disarm
                     print(dungeon_room [3][0]) #prints success message
+                else:
+                    print(dungeon_room [3][1]) #prints failure message
                 health_change = dungeon_room[3][2]
                 player_health = max(0, player_health + health_change)
                 if player_health == 0:
@@ -138,8 +140,8 @@ def enter_dungeon(player_health,inventory, dungeon_rooms):
     return player_health,inventory
 #end of enter_dungeon function - its really long :)
 
-#The main function!
 def main():
+    """The main function"""
     player_health = 100
     monster_health = 60
     inventory = [] #everything should be initialized before first function is called
