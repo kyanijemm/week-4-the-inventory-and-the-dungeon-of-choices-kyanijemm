@@ -3,16 +3,19 @@ import random
 
 #display_player_status fucntion
 def display_player_status(player_health): 
+    """Displays the player's health"""
     print(f"Your current health: {player_health}")
 
-#acquire_item function - just puts item into inventory
+#acquire_item function
 def acquire_item(inventory,item):
+    """"Just puts items into inventory"""
     inventory.append(item)
     print(f"You acquired a {item}")
     return inventory
 
 #display_inventory function 
 def display_inventory(inventory):
+    """"Displays the inventory"""
     if len(inventory)== 0:
         print("Your inventory is empty.")
     else:
@@ -23,6 +26,7 @@ def display_inventory(inventory):
 
 # handle_path_choice function
 def handle_path_choice(player_health):
+    """Performs actions when user makes a change in direction"""
     path_choices = ['left','right']
     path_chosen = random.choice(path_choices)
     if path_chosen == 'left':
@@ -41,14 +45,16 @@ def handle_path_choice(player_health):
             player_health = new_health
     return player_health
 
-#player_attack function - you hit the monster
+#player_attack function
 def player_attack(monster_health):
+    """You hit the monster"""
     print("You strike the monster for 15 damage!")
     #set a max function to ensure that monster_health never goes under 0
     monster_health = max(0, monster_health - 15)
     return(monster_health)
-#monster_attack function - the monster hits you 
+#monster_attack function
 def monster_attack(player_health):
+    """The monster hits you"""
     normal_attack = player_health - 10
     critical_hit = player_health - 20
     if random.random() <0.5: #50% chance of critical hit
@@ -63,6 +69,7 @@ def monster_attack(player_health):
     return player_health
 #combat_encounter function
 def combat_encounter(player_health, monster_health, has_treasure):
+    """Changes in player health when attacked by monster"""
     while player_health > 0 and monster_health > 0:
         monster_gets_hit = player_attack(monster_health)
         monster_health = monster_gets_hit
@@ -84,12 +91,14 @@ def combat_encounter(player_health, monster_health, has_treasure):
             #inserted break statement with the return if we lose
 #check_for_treasure function
 def check_for_treasure(has_treasure):
+    """Checks for treasure"""
     if has_treasure:
         print("You found the hidden treasure! You've won your first monster encounter!")
     else:
         print("The monster did not have the treasure. You continue your journey.")
 #enter_dungeon function
 def enter_dungeon(player_health,inventory, dungeon_rooms):
+    """You enter the dungeon"""
     random.shuffle(dungeon_rooms)
     for dungeon_room in dungeon_rooms: #this is the protocol for every room when it has been entered
         print(dungeon_room[0]) #when they enter a room, they will say the room's description first
