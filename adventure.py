@@ -47,7 +47,6 @@ def player_attack(monster_health):
     #set a max function to ensure that monster_health never goes under 0
     monster_health = max(0, monster_health - 15)
     return(monster_health)
-
 #monster_attack function - the monster hits you 
 def monster_attack(player_health):
     normal_attack = player_health - 10
@@ -62,7 +61,6 @@ def monster_attack(player_health):
     #once player_damage is introduced
     player_health = max(0, player_damage)
     return player_health
-
 #combat_encounter function
 def combat_encounter(player_health, monster_health, has_treasure):
     while player_health > 0 and monster_health > 0:
@@ -84,15 +82,12 @@ def combat_encounter(player_health, monster_health, has_treasure):
             print("Game Over!")
             return False,player_health #Player lost AND no treasure :/
             #inserted break statement with the return if we lose
-
 #check_for_treasure function
 def check_for_treasure(has_treasure):
     if has_treasure:
         print("You found the hidden treasure! You've won your first monster encounter!")
     else:
         print("The monster did not have the treasure. You continue your journey.")
-
-
 #enter_dungeon function
 def enter_dungeon(player_health,inventory, dungeon_rooms):
     random.shuffle(dungeon_rooms)
