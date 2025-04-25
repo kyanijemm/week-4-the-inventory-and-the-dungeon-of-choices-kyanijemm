@@ -81,16 +81,15 @@ def combat_encounter(player_health, monster_health, has_treasure):
             if has_treasure:
                 print("Under the monster you find a mysterious haunted treasure...")
                 return True,player_health #Player won and there was treasure
-            else:
-                return False,player_health #Player won but no treasure :/
+            return False,player_health #Player won but no treasure :/
             #inserted break statements with the return function if there's no treasure
         player_gets_hit = monster_attack(player_health)
         player_health = player_gets_hit
         display_player_status(player_health)
         if player_health <= 0:
             print("Game Over!")
-            return False,player_health #Player lost AND no treasure :/
-            #inserted break statement with the return if we lose
+    return False,player_health #Player lost AND no treasure :/
+    #inserted break statement with the return if we lose
 
 #check_for_treasure function
 def check_for_treasure(has_treasure):
@@ -118,7 +117,13 @@ def enter_dungeon(player_health,inventory, dungeon_rooms):
                     print(dungeon_room[3][0]) #prints success message
                 else:
                     print(dungeon_room[3] [1]) #prints failure mesasge
-                    puzzle_damage = player_health + dungeon_room[3][2]
+
+                    if dungeon_room[3][2] < 0:
+                        puzzle_damage = player_health - abs(dungeon_room[3][2])
+                        #will substract if negative
+                    else: 
+                        puzzle_damage = player_health + dungeon_room[3][2]
+                        #will add if positive
                     if puzzle_damage <= 0:
                         print("You are barely alive!")
                         player_health = 0
@@ -133,7 +138,14 @@ def enter_dungeon(player_health,inventory, dungeon_rooms):
                     print(dungeon_room [3][0]) #prints success message
                 else:
                     print(dungeon_room [3][1]) #prints failure message
-                    trap_damage = player_health + dungeon_room[3][2]
+
+
+                    if dungeon_room[3][2] < 0:
+                        trap_damage = player_health - abs(dungeon_room[3][2])
+                    else: 
+                        trap_damage = player_health + dungeon_room[3][2]
+
+
                     if trap_damage <= 0:
                         print("You are barely alive!")
                         player_health = 0
@@ -156,7 +168,7 @@ def main():
          'None','trap', ('You have made it out alive!', 'You were caught in a trap!', -15)),
         ('\nYou enter the Enchanted Cave of Mystery \nA gem filled cave filled with puzzles',
          'key','puzzle', ('You solved the puzzle!', 'The puzzle will remains unsolved', -5)),
-        ('\nYou have stumbled upon a room with a small cauldron \n It is the Elixir of Life!', 
+        ('\nYou have stumbled upon a room with a small cauldron \n It is the Elixir of Life!',
          'potion', 'none', None),
         ('\nYou found a room with a treasure chest! But look there is a puzzle...',
          'treasure','puzzle', ('You solved the puzzle!','Door remains stubbornly locked', -5))]
@@ -175,7 +187,8 @@ def main():
     display_inventory(updated_inventory) #displays updated inventory after dungeon exploration
     display_player_status(updated_health) #displays updated health after dungeon exploration
 
-    if updated_health > 0: #This means that the user has SURVIVED the combat encounter, go explore dungeons
+    if updated_health > 0:
+        #This means that the user has SURVIVED the combat encounter, go explore dungeons
         print("Congratulations! You have survived exploring the dungeon rooms, you've won! ")
     else:
         print("You did not survive the dungeon. Game Over!")
